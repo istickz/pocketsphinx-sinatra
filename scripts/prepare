@@ -1,0 +1,83 @@
+indent(){
+  sed -u 's/^/        /'
+}
+
+sudo yum install swig
+sudo yum install autoconf
+sudo yum install libtool
+sudo yum install automake
+sudo yum install bison
+
+BUILD_DIR=/home/ec2-user
+CACHE_DIR="$BUILD_DIR/tmp"
+mkdir -p $CACHE_DIR
+
+SPHINXBASE_TAR="$CACHE_DIR/sphinxbase.tar.gz"
+SPHINXBASE_URL="http://downloads.sourceforge.net/project/cmusphinx/sphinxbase/5prealpha/sphinxbase-5prealpha.tar.gz"
+SPHINXBASE_PATH="$CACHE_DIR/sphinxbase"
+
+POCKETSPHINX_TAR="$CACHE_DIR/pocketsphinx.tar.gz"
+POCKETSPHINX_URL="https://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/pocketsphinx-5prealpha.tar.gz/download"
+POCKETSPHINX_PATH="$CACHE_DIR/pocketsphinx"
+
+echo "-----> Installing CMU-Sphinxbase libraries"
+
+# Change to BUILD_DIR ($1)
+cd $BUILD_DIR
+
+# Download and install Sphinxbase
+
+echo "-----> Installing Sphinxbase"
+if [ -f $SPHINXBASE_TAR ]; then
+  echo "-----> Using sphinxbase package from cache"
+else
+  echo "-----> Downloading sphinxbase package"
+  curl -L -o $SPHINXBASE_TAR $SPHINXBASE_URL
+fi
+
+if [ -f $SPHINXBASE_PATH ]; then
+  echo "-----> Unpacking into $SPHINXBASE_PATH"
+else
+  echo "-----> Making new directory $SPHINXBASE_PATH"
+  mkdir $SPHINXBASE_PATH
+fi
+
+tar -xzvf $SPHINXBASE_TAR -C $SPHINXBASE_PATH
+
+echo "-----> Changing directory to $SPHINXBASE_PATH"
+cd $SPHINXBASE_PATH/sphinxbase-5prealpha
+
+echo "-----> Listing contents of $SPHINXBASE_PATH"
+ls
+
+./autogen.sh
+./configure
+make
+sudo make install
+
+export LD_LIBRARY_PATH=/usr/local/lib
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+# Download and install Pocketsphinx
+echo "-----> Installing pocketsphinx"
+if [ -f $POCKETSPHINX_TAR ]; then
+  echo "-----> Using pocketsphinx package from cache"
+else
+  echo "-----> Downloading pocketsphinx package"
+  curl -L -o $POCKETSPHINX_TAR $POCKETSPHINX_URL
+fi
+
+if [ -f $POCKETSPHINX_PATH ]; then
+  echo "-----> Unpacking into $POCKETSPHINX_PATH"
+else
+  echo "-----> Making new directory $POCKETSPHINX_PATH"
+  mkdir $POCKETSPHINX_PATH
+fi
+
+tar -xzvf $POCKETSPHINX_TAR -C $POCKETSPHINX_PATH
+
+cd $POCKETSPHINX_PATH/pocketsphinx-5prealpha
+./autogen.sh
+./configure
+make
+sudo make install
