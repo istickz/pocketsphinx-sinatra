@@ -1,7 +1,5 @@
 require File.expand_path '../test_helper.rb', __FILE__
-require 'json'
 require 'base64'
-require 'pry'
 
 class TranscribeTest < MiniTest::Unit::TestCase
 
