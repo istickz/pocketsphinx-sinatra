@@ -7,8 +7,6 @@ require 'tempfile'
 require File.expand_path '../models/transcriber.rb', __FILE__
 require File.expand_path '../models/file_builder.rb', __FILE__
 
-set :port, 80
-
 get '/' do
   'Pocketsphinx API'
 end
