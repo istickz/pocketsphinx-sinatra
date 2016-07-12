@@ -1,6 +1,7 @@
 require File.expand_path '../test_helper.rb', __FILE__
 require 'json'
 require 'base64'
+require 'pry'
 
 class TranscribeTest < MiniTest::Unit::TestCase
 
@@ -14,11 +15,12 @@ class TranscribeTest < MiniTest::Unit::TestCase
     get '/transcribe'
     assert last_response.ok?
     puts last_response.body
-    assert_equal 'data', json['test']
+    assert_equal 'try POST silly', json['message']
   end
 
   def test_transcribe_post
-    post '/transcribe', recording: nil, file_type: 'wav'
+    puts file.path
+    post '/transcribe', recording: encoded_file, file_type: 'wav'
     assert json['hypothesis']
   end
 
@@ -29,11 +31,10 @@ class TranscribeTest < MiniTest::Unit::TestCase
   end
 
   def file
-    File.read('fixtures/hello.wav')
+    File.open('fixtures/hello.wav')
   end
 
   def encoded_file
-    Base64.encode64(file)
+    Base64.encode64(file.read)
   end
 end
-

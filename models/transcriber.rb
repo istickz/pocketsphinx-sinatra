@@ -4,7 +4,7 @@ require 'tempfile'
 class Transcriber
   attr_accessor :file
 
-  def initialize(file, file_type)
+  def initialize(file)
     @file = file
   end
 
@@ -22,4 +22,3 @@ class Transcriber
     Pocketsphinx::Configuration.default
   end
 end
-

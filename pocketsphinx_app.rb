@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'json'
+require 'tempfile'
 require File.expand_path '../models/transcriber.rb', __FILE__
+require File.expand_path '../models/file_builder.rb', __FILE__
 
 get '/' do
   'Pocketsphinx API'
@@ -8,17 +10,16 @@ end
 
 get '/transcribe' do
   {
-    test: 'data',
+    message: 'try POST silly',
   }.to_json
 end
 
 post'/transcribe' do
-  file = File.open('fixtures/hello.wav')
-  transcriber = Transcriber.new(file, params[:file_type])
+  tmp_file = FileBuilder.new(params).build
+  transcriber = Transcriber.new(File.open(tmp_file.path))
   transcriber.transcribe!
+  tmp_file.unlink
   {
-    test: 'data',
     hypothesis: transcriber.transcription
   }.to_json
 end
-
