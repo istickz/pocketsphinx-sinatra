@@ -2,11 +2,11 @@ indent(){
   sed -u 's/^/        /'
 }
 
-sudo yum install swig
-sudo yum install autoconf
-sudo yum install libtool
-sudo yum install automake
-sudo yum install bison
+sudo yum -y install swig
+sudo yum -y install autoconf
+sudo yum -y install libtool
+sudo yum -y install automake
+sudo yum -y install bison
 
 BUILD_DIR=/home/ec2-user
 CACHE_DIR="$BUILD_DIR/tmp"
