@@ -1,5 +1,8 @@
+require 'rubygems'
+require 'bundler'
+Bundle.require
+
 require 'sinatra'
-require 'json'
 require 'tempfile'
 require File.expand_path '../models/transcriber.rb', __FILE__
 require File.expand_path '../models/file_builder.rb', __FILE__
