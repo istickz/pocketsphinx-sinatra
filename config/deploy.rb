@@ -12,7 +12,7 @@ set :branch, Configuration::GIT['branch']
 
 set :user, Configuration::SSH['user']
 set :forward_agent, Configuration::SSH['forward_agent']
-set :identity_file, Configuration::SSH['identity_file']
+# set :identity_file, Configuration::SSH['identity_file']
 
 set :shared_paths, ['log', 'tmp']
 
