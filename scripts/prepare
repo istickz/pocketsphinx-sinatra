@@ -2,13 +2,13 @@ indent(){
   sed -u 's/^/        /'
 }
 
-sudo yum -y install swig
-sudo yum -y install autoconf
-sudo yum -y install libtool
-sudo yum -y install automake
-sudo yum -y install bison
+sudo apt -y install swig
+sudo apt -y install autoconf
+sudo apt -y install libtool
+sudo apt -y install automake
+sudo apt -y install bison
 
-BUILD_DIR=/home/ec2-user
+BUILD_DIR=/home/temur
 CACHE_DIR="$BUILD_DIR/tmp"
 mkdir -p $CACHE_DIR
 
@@ -17,7 +17,7 @@ SPHINXBASE_URL="http://downloads.sourceforge.net/project/cmusphinx/sphinxbase/5p
 SPHINXBASE_PATH="$CACHE_DIR/sphinxbase"
 
 POCKETSPHINX_TAR="$CACHE_DIR/pocketsphinx.tar.gz"
-POCKETSPHINX_URL="https://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/pocketsphinx-5prealpha.tar.gz/download"
+POCKETSPHINX_URL="https://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/pocketsphinx-5prealpha.tar.gz"
 POCKETSPHINX_PATH="$CACHE_DIR/pocketsphinx"
 
 echo "-----> Installing CMU-Sphinxbase libraries"
