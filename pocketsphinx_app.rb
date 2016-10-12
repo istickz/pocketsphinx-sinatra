@@ -4,6 +4,7 @@ Bundler.require
 
 require 'sinatra'
 require 'tempfile'
+require 'base64'
 require File.expand_path '../models/transcriber.rb', __FILE__
 require File.expand_path '../models/file_builder.rb', __FILE__
 
