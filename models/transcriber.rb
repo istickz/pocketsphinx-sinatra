@@ -3,14 +3,14 @@ require 'tempfile'
 
 class Transcriber
   attr_accessor :file
-  MODELS_PATH = '/Users/temur/work/speech/models/'
+  MODELS_PATH = 'models_path'
 
   def initialize(file)
     @file = file
   end
 
   def transcribe!
-    @decoder = Pocketsphinx::Decoder.new(custom_config)
+    @decoder = Pocketsphinx::Decoder.new(default_config)
     @decoder.configuration['cmninit'] = '8.0'
     @decoder.decode(@file.path)
   end
@@ -25,10 +25,10 @@ class Transcriber
 
   def custom_config
     config = default_config
-    # config['dict'] = MODELS_PATH + 'cmudict/' + 'cmudict.dict'
+    # config['dict'] = MODELS_PATH + 'dict.dict'
     # config['lm']   = MODELS_PATH + 'en-70k-0.2.lm'
     # config['hmm']  = MODELS_PATH + 'cmusphinx-en-us-5.2'
-    # config
+    config
   end
 end
 

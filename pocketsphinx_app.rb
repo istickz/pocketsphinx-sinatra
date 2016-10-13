@@ -19,10 +19,12 @@ get '/transcribe' do
 end
 
 post'/transcribe' do
+  headers 'Access-Control-Allow-Origin' => 'your-client-server'
   tmp_file = FileBuilder.new(params).build
   transcriber = Transcriber.new(File.open(tmp_file.path))
   transcriber.transcribe!
   tmp_file.unlink
+  puts transcriber.transcription
   {
     hypothesis: transcriber.transcription
   }.to_json
